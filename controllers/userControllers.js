@@ -1,5 +1,16 @@
 const db = require('../DB/db');
 
+
+exports.getAllUsers = async (req, res) => {
+  try {
+    const [users] = await db.execute('SELECT * FROM users');
+    res.json(users);
+  } catch (err) {
+    console.error('Error retrieving users:', err);
+    res.status(500).json({ error: 'Database error' });
+  }
+};
+
 // Add User
 exports.addUser = async (req, res) => {
   const { name, email } = req.body;
